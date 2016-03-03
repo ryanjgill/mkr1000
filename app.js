@@ -60,12 +60,12 @@ net.connect(options, function() { //'connect' listener
 
         socket.on('led:on', function (data) {
           led.on()
-          console.log('LED ON RECEIVED')
+          console.log('led:on received')
         })
 
         socket.on('led:off', function (data) {
           led.off()
-          console.log('LED OFF RECEIVED')
+          console.log('led:off received')
 
         })
 
@@ -73,7 +73,7 @@ net.connect(options, function() { //'connect' listener
           pulseLed(led, 2000, function () {
             socket.emit('done:pulsing')
           })
-          console.log('LED PULSE RECEIVED')
+          console.log('led:pulse received')
         })
 
 
@@ -118,7 +118,7 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-//app.use(cookieParser())
+app.use(cookieParser())
 app.use(require('node-sass-middleware')({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
