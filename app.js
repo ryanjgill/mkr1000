@@ -19,7 +19,6 @@ httpServer.listen(3000)
 let net = require('net')
 let five = require('johnny-five')
 let firmata = require('firmata')
-let sse = require('./middleware/sse')
 
 // set options to match Firmata config for wifi
 // using MKR1000 with WiFi101
@@ -28,7 +27,7 @@ var options = {
   port: 3030
 }
 
-var led, pin6
+var led, moisture
 
 net.connect(options, function() { //'connect' listener
   console.log('connected to server!')
@@ -50,6 +49,11 @@ net.connect(options, function() { //'connect' listener
 
       // setup led to correct pin
       led = new five.Led(6)
+
+      // setup moisture to correct pin
+      moisture = new five.Sensor({
+        pin: 'A1'
+      })
 
       io.on('connection', function (socket) {
         console.log(socket.id)
@@ -74,14 +78,18 @@ net.connect(options, function() { //'connect' listener
 
 
         setInterval(function () {
-          socket.emit('chart:data', {date: new Date().getTime(), value: [getRandomInt(11, 15), getRandomInt(0.3, 2.5)] })
-        }, 1000)
+          socket.emit('chart:data', {date: new Date().getTime(), value: [getRandomInt(11, 15), formatMoisture(moisture)] })
+        }, 1000/2)
       })
 
     })
   })
 
 })
+
+function formatMoisture(moisture) {
+  return Math.round(moisture.value/1023*100)
+}
 
 function pulseLed(led, duration, cb) {
   led.blink()
@@ -90,34 +98,6 @@ function pulseLed(led, duration, cb) {
     cb();
   }, duration)
 }
-
-//Socket connection handler
-//io.on('connection', function (socket) {
-//  console.log(socket.id)
-//
-//  socket.on('led:on', function (data) {
-//    led.on()
-//    console.log('LED ON RECEIVED')
-//  })
-//
-//  socket.on('led:off', function (data) {
-//    led.off()
-//    console.log('LED OFF RECEIVED')
-//
-//  })
-//
-//  socket.on('led:pulse', function (data) {
-//    pulseLed(led, 2000, function () {
-//      socket.emit('done:pulsing')
-//    })
-//    console.log('LED PULSE RECEIVED')
-//  })
-//
-//
-//  setInterval(function () {
-//    socket.emit('chart:data', {date: new Date().getTime(), value: [getRandomInt(11, 15), getRandomInt(0.3, 2.5)] })
-//  }, 1000)
-//})
 
 function emitLedValue(socket, led) {
   socket.emit('led:change', {

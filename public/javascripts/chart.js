@@ -13,9 +13,9 @@ $(document).ready(function () {
     var $delay = 1000,
         vMin = 11.5,
         vMax = 14.5,
-        cMin = .3,
-        cMax = 2.5,
-        totalPoints = 25;
+        cMin = 0,
+        cMax = 1,
+        totalPoints = 50;
 
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -54,7 +54,7 @@ $(document).ready(function () {
         },
         xAxis: {
             type: 'datetime',
-            tickPixelInterval: 150
+            tickPixelInterval: 500
         },
         yAxis: [{
             title: {
@@ -67,9 +67,11 @@ $(document).ready(function () {
             }]
         }, {
             title: {
-                text: 'CURRENT'
+                text: 'MOISTURE (%)'
             },
             opposite: true,
+            min: 0,
+            max: 100,
             plotLines: [{
                 value: 0,
                 width: 1,
@@ -107,7 +109,7 @@ $(document).ready(function () {
                 return data;
             }())
         }, {
-            name: 'CURRENT',
+            name: 'Moisture',
             yAxis: 1,
             data: (function () {
                 // generate an array of random data
@@ -118,7 +120,7 @@ $(document).ready(function () {
                 for (i = -totalPoints; i <= 0; i += 1) {
                     data.push({
                         x: time + i * $delay,
-                        y: getRandomInt(cMin, cMax)
+                        y: 0
                     });
                 }
                 return data;
