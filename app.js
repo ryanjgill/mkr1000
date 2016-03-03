@@ -50,6 +50,10 @@ net.connect(options, function() { //'connect' listener
       // setup led to correct pin
       led = new five.Led(6)
 
+      pulseLed(led, 2000, function () {
+        console.log('LED √');
+      });
+
       // setup moisture to correct pin
       moisture = new five.Sensor({
         pin: 'A1'
