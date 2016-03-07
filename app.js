@@ -27,7 +27,7 @@ var options = {
   port: 3030
 }
 
-var led, moisture
+var led, moistureSensor, tempSensor, lightSensor
 
 net.connect(options, function() { //'connect' listener
   console.log('connected to server!')
@@ -51,39 +51,53 @@ net.connect(options, function() { //'connect' listener
       led = new five.Led(6)
 
       pulseLed(led, 2000, function () {
-        console.log('LED √');
-      });
+        console.log('LED √')
+      })
 
-      // setup moisture to correct pin
-      moisture = new five.Sensor({
-        pin: 'A1'
+      // setup temperature sensor LM35
+      tempSensor = new five.Thermometer({
+        controller: "LM35",
+        pin: "A1"
+      })
+
+      // setup moisture sensor to correct pin
+      moistureSensor = new five.Sensor({
+        pin: 'A2'
+      })
+
+      // setup light sensor to correct pin
+      lightSensor = new five.Sensor({
+        pin: "A3",
+        freq: 250
       })
 
       io.on('connection', function (socket) {
         console.log(socket.id)
 
-        socket.on('led:on', function (data) {
-          led.on()
-          console.log('led:on received')
-        })
-
-        socket.on('led:off', function (data) {
-          led.off()
-          console.log('led:off received')
-
-        })
-
-        socket.on('led:pulse', function (data) {
-          pulseLed(led, 2000, function () {
-            socket.emit('done:pulsing')
-          })
-          console.log('led:pulse received')
-        })
-
+        // led actions
+        //socket.on('led:on', function (data) {
+        //  led.on()
+        //  console.log('led:on received')
+        //})
+        //
+        //socket.on('led:off', function (data) {
+        //  led.off()
+        //  console.log('led:off received')
+        //
+        //})
+        //
+        //socket.on('led:pulse', function (data) {
+        //  pulseLed(led, 2000, function () {
+        //    socket.emit('done:pulsing')
+        //  })
+        //  console.log('led:pulse received')
+        //})
 
         setInterval(function () {
-          socket.emit('chart:data', {date: new Date().getTime(), value: [getRandomInt(11, 15), formatMoisture(moisture)] })
-        }, 1000/2)
+          socket.emit('chart:data', {
+            date: new Date().getTime(),
+            value: [getTemp(tempSensor), getLight(lightSensor), getMoisture(moistureSensor)] })
+        }, 1000)
       })
 
     })
@@ -91,23 +105,24 @@ net.connect(options, function() { //'connect' listener
 
 })
 
-function formatMoisture(moisture) {
+function getTemp(tempSensor) {
+  return +tempSensor.fahrenheit.toFixed(1)
+}
+
+function getLight(tempSensor) {
+  return Math.round(lightSensor.value/1023*100)
+}
+
+function getMoisture(moisture) {
   return Math.round(moisture.value/1023*100)
 }
 
 function pulseLed(led, duration, cb) {
   led.blink()
   setTimeout(function () {
-    led.stop().off();
-    cb();
+    led.stop().off()
+    cb()
   }, duration)
-}
-
-function emitLedValue(socket, led) {
-  socket.emit('led:change', {
-    value: led.value,
-    ticks: new Date().getTime()
-  })
 }
 
 // setting app stuff
