@@ -1,42 +1,28 @@
 extends layout
 
 block content
-  h1= title
-  div
-    button#on On
-    button#off Off
-    button#pulse Pulse
+  section#main-column.dashboard
+    div#about
+      h1
+        span MKR1000
+        span  Plant Monitoring System
+      p This system will be using the <a href="https://www.arduino.cc/en/Main/ArduinoMKR1000" class="mkr-link">Arduino MKR1000</a> running the latest Standard Firmata Wifi sketch. The Firmata library allows us access to the board via a Node app using <a href="http://johnny-five.io" class="j5-link">Johnny-five.io</a>.
+    div#sensorValues
+      div.sensor-values
+        div.temperature 85.0<span>°F</span>
+        label Temperature
+      div.sensor-values
+        div.light 20<span>%</span>
+        label Light
+      div.sensor-values
+        div.moisture 0<span>%</span>
+        label Moisture
+
+    div#sensorData
 
   #container
     #chart
 
 block page_scripts
-  script.
-    $(function () {
-      var socket = io.connect('http://192.168.1.249:3000')
-      socket.on('led:change', function (data) {
-        console.log(data)
-      })
-
-      socket.on('chart:data', function (data) {
-        console.log(data)
-      })
-
-      $('#on').on('click', function () {
-        socket.emit('led:on')
-        console.log('clicked on')
-      })
-
-      $('#off').on('click', function () {
-        socket.emit('led:off')
-        console.log('clicked off')
-      })
-
-      $('#pulse').on('click', function () {
-        socket.emit('led:pulse')
-        console.log('clicked pulse')
-      })
-    })
-
   script(src='/javascripts/chart.js')
 
