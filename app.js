@@ -74,42 +74,44 @@ net.connect(options, function() { //'connect' listener
       io.on('connection', function (socket) {
         console.log(socket.id)
 
-        // led actions
-        //socket.on('led:on', function (data) {
-        //  led.on()
-        //  console.log('led:on received')
-        //})
-        //
-        //socket.on('led:off', function (data) {
-        //  led.off()
-        //  console.log('led:off received')
-        //
-        //})
-        //
-        //socket.on('led:pulse', function (data) {
-        //  pulseLed(led, 2000, function () {
-        //    socket.emit('done:pulsing')
-        //  })
-        //  console.log('led:pulse received')
-        //})
+        // emit usersCount on new connection
+        emitUsersCount(io)
 
-        setInterval(function () {
-          socket.emit('chart:data', {
-            date: new Date().getTime(),
-            value: [getTemp(tempSensor), getLight(lightSensor), getMoisture(moistureSensor)] })
-        }, 1000)
+        // emit usersCount when connection is closed
+        socket.on('disconnect', function () {
+          emitUsersCount(io)
+        });
       })
+
+      // emit chart data on each interval
+      setInterval(function () {
+        emitChartData(io, tempSensor, lightSensor, moistureSensor)
+      }, 1000)
 
     })
   })
 
 })
 
-function getTemp(tempSensor) {
-  return +tempSensor.fahrenheit.toFixed(1)
+function emitUsersCount(io) {
+  // emit usersCount to all sockets
+  io.sockets.emit('usersCount', {
+    totalUsers: io.engine.clientsCount
+  })
 }
 
-function getLight(tempSensor) {
+function emitChartData(io, tempSensor, lightSensor, moistureSensor) {
+  io.sockets.emit('chart:data', {
+    date: new Date().getTime(),
+    value: [getTemp(tempSensor), getLight(lightSensor), getMoisture(moistureSensor)]
+  })
+}
+
+function getTemp(tempSensor) {
+  return Math.round(tempSensor.fahrenheit - 20)
+}
+
+function getLight(lightSensor) {
   return Math.round(lightSensor.value/1023*100)
 }
 
