@@ -77,6 +77,8 @@ div#sensorValues {
       color: #90ee7e; }
     div#sensorValues div.sensor-values div.moisture {
       color: #f45b5b; }
+    div#sensorValues div.sensor-values div.users {
+      color: #7798BF; }
 
 @media screen and (max-width: 500px) {
   div#about {
@@ -92,11 +94,14 @@ div#sensorValues {
         margin-left: 10px;
         margin-bottom: 10px; } }
 
-@media screen and (max-height: 430px) {
+@media screen and (max-height: 600px) {
   div#about {
     display: none; }
   div#sensorValues {
     flex-direction: row;
     font-size: .5em; }
-    div#sensorValues div.sensor-values > label {
-      font-size: 1em; } }
+    div#sensorValues div.sensor-values {
+      flex-direction: column;
+      align-items: center; }
+      div#sensorValues div.sensor-values > label {
+        font-size: 1em; } }

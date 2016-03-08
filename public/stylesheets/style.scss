@@ -4,6 +4,8 @@
 $blue: #2b908f;
 $green: #90ee7e;
 $red: #f45b5b;
+$blue-grey: #7798BF;
+
 
 // highcharts dark theme colors
 // colors: ["#2b908f", "#90ee7e", "#f45b5b", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee",
@@ -134,6 +136,10 @@ div#sensorValues {
       color: $red;
     }
 
+    div.users {
+      color: $blue-grey;
+    }
+
   }
 
 
@@ -161,7 +167,7 @@ div#sensorValues {
     }
   }
 }
-@media screen and (max-height: 430px) {
+@media screen and (max-height: 600px) {
   div#about {
     display: none;
   }
@@ -169,10 +175,15 @@ div#sensorValues {
   div#sensorValues {
     flex-direction: row;
     font-size: .5em;
-    div.sensor-values > label {
-      font-size: 1em;
-    }
 
+    div.sensor-values {
+      flex-direction: column;
+      align-items: center;
+
+      > label {
+        font-size: 1em;
+      }
+    }
   }
 }
 

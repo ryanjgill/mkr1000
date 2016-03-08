@@ -7,6 +7,7 @@ $(document).ready(function () {
         , $temperatureDisplay = $('div.sensor-values div.temperature')
         , $lightDisplay = $('div.sensor-values div.light')
         , $moistureDisplay = $('div.sensor-values div.moisture')
+        , $users = $('.users')
         ;
 
     var socket = io.connect('http://192.168.1.249:3000')
@@ -20,12 +21,20 @@ $(document).ready(function () {
         console.log(readings.value);
     })
 
+    socket.on('usersCount', function (total) {
+        updateUsersCount(total.totalUsers);
+    });
+
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
+    function updateUsersCount(total) {
+        $users.html(total);
+    }
+
     function updateTemperature(value) {
-        $temperatureDisplay.html(value);
+        $temperatureDisplay.html(value + '<span> °F</span>');
     }
 
     function updateLight(value) {
@@ -70,6 +79,7 @@ $(document).ready(function () {
                 }
             }
         },
+        credits: false,
         title: {
             text: 'Sensor Data'
         },
@@ -117,8 +127,8 @@ $(document).ready(function () {
                 }
             },
             // omitting min and max to auto scale moisture axis yAxis
-            //min: 0,
-            //max: 100,
+            min: 0,
+            max: 100,
             opposite: true,
             plotLines: [{
                 value: 0,
