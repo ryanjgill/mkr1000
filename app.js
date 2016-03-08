@@ -80,7 +80,7 @@ net.connect(options, function() { //'connect' listener
         // emit usersCount when connection is closed
         socket.on('disconnect', function () {
           emitUsersCount(io)
-        });
+        })
       })
 
       // emit chart data on each interval
