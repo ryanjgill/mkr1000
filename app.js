@@ -57,7 +57,8 @@ net.connect(options, function() { //'connect' listener
       // setup temperature sensor LM35
       tempSensor = new five.Thermometer({
         controller: "LM35",
-        pin: "A1"
+        pin: "A1",
+        freq: 250
       })
 
       // setup moisture sensor to correct pin

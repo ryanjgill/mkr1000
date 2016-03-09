@@ -2,7 +2,7 @@ $(document).ready(function () {
     var _series1
         , _series2
         , _series3
-        , totalPoints = 50
+        , totalPoints = 100
         , $delay = 1000
         , $temperatureDisplay = $('div.sensor-values div.temperature')
         , $lightDisplay = $('div.sensor-values div.light')
@@ -85,7 +85,7 @@ $(document).ready(function () {
         },
         xAxis: {
             type: 'datetime',
-            tickPixelInterval: 500
+            tickPixelInterval: 1000
         },
         yAxis: [{
             title: {
