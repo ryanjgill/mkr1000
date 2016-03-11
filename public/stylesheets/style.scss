@@ -19,6 +19,10 @@ html, body {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+.hide {
+  display: none !important;
+}
+
 #main-column{
   min-height: 100%;
   display: flex;
@@ -110,6 +114,10 @@ div#sensorValues {
 
     text-align: center;
 
+    &:hover {
+      cursor: pointer;
+    }
+
     > div {
       font-size: 4em;
       font-weight: 200;
@@ -143,6 +151,17 @@ div#sensorValues {
   }
 
 
+}
+
+div#detail-container {
+  flex: 2 1 0;
+  padding: 0;
+  margin: 0;
+}
+div#master-container {
+  flex: 1 1 0;
+  padding: 0;
+  margin: 0;
 }
 
 

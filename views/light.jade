@@ -1,0 +1,15 @@
+extends layout
+
+block content
+    section#main-column.dashboard
+        div#sensorValues.hide
+            div.sensor-values
+                div.light ?<span>%</span>
+                label Light
+
+        div#detail-container
+        div#master-container
+
+block page_scripts
+    script(src='/javascripts/lightDetailChart.js')
+

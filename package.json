@@ -16,8 +16,10 @@
     "jade": "~1.11.0",
     "johnny-five": "^0.9.26",
     "morgan": "~1.6.1",
+    "node-pixel": "^0.6.0",
     "node-sass-middleware": "0.8.0",
     "oled-js": "^4.0.1",
+    "rethinkdb": "^2.2.2",
     "serve-favicon": "~2.3.0",
     "socket.io": "^1.4.5",
     "websocket": "^1.0.22"
