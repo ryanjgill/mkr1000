@@ -50,14 +50,24 @@ $(document).ready(function () {
         // create a detail chart referenced by a global variable
         detailChart = $('#detail-container').highcharts({
             chart: {
-                reflow: true
+                reflow: true,
+                style: {
+                    fontFamily: 'Source Sans Pro'
+                }
             },
             credits: false,
             title: {
-                text: 'Light Data'
+                text: 'Light Data',
+                style: {
+                    fontSize: '3em',
+                    color: Highcharts.getOptions().colors[1]
+                }
             },
             subtitle: {
-                text: 'Select an area by dragging across the lower chart'
+                text: 'Select an area by dragging across the <span style="text-decoration: underline">lower</span> chart',
+                style: {
+                    fontSize: '2em'
+                }
             },
             xAxis: {
                 type: 'datetime'
@@ -72,7 +82,12 @@ $(document).ready(function () {
                 formatter: function() {
                     var point = this.points[0];
                     return '<b>' + point.series.name + '</b><br/>' + Highcharts.dateFormat('%A %B %e %Y', this.x) + ':<br/>' +
-                        Highcharts.numberFormat(point.y, 2) + ' % Full Light Exposure';
+                        point.y + ' % Full Light Exposure';
+                },
+                style: {
+                    fontSize: '1em',
+                    lineHeight: '36px',
+                    padding: '30px'
                 },
                 shared: true
             },
@@ -112,6 +127,9 @@ $(document).ready(function () {
         $('#master-container').highcharts({
                 chart: {
                     reflow: true,
+                    style: {
+                        fontFamily: 'Source Sans Pro'
+                    },
                     zoomType: 'x',
                     events: {
 
@@ -155,7 +173,17 @@ $(document).ready(function () {
                     }
                 },
                 title: {
-                    text: null
+                    text: Number(data.length).toLocaleString('en'),
+                    style: {
+                        fontSize: '2em',
+                        color: Highcharts.getOptions().colors[1]
+                    }
+                },
+                subtitle: {
+                    text: 'Total Measurements',
+                    style: {
+                        fontSize: '2em'
+                    }
                 },
                 xAxis: {
                     type: 'datetime',

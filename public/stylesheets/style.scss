@@ -114,8 +114,25 @@ div#sensorValues {
 
     text-align: center;
 
+    border-radius: 5px;
+
+    transition: background-color 250ms ease-out;
+
     &:hover {
       cursor: pointer;
+
+      &#temperature {
+        background-color: rgba(43, 144, 143, 0.05);
+      }
+
+      &#light {
+        background-color: rgba(144, 238, 126, 0.05);
+      }
+
+      &#moisture {
+        background-color: rgba(244, 91, 91, 0.05);
+      }
+
     }
 
     > div {
@@ -130,6 +147,10 @@ div#sensorValues {
 
     > label {
       font-size: 1.5em;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     div.temperature {
@@ -138,6 +159,9 @@ div#sensorValues {
 
     div.light {
       color: $green;
+      transition: background-color 300ms ease-in;
+      border-radius: 5px;
+
     }
 
     div.moisture {
@@ -146,8 +170,18 @@ div#sensorValues {
 
     div.users {
       color: $blue-grey;
+
+      &:hover{
+        cursor: default !important;
+      }
     }
 
+  }
+
+  div#users{
+    div.users:hover, label:hover {
+      cursor: default;
+    }
   }
 
 
@@ -205,5 +239,3 @@ div#master-container {
     }
   }
 }
-
-

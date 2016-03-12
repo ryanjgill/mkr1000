@@ -18,7 +18,6 @@ $(document).ready(function () {
         _series3.addPoint([readings.date, readings.value[2]], true, true);
 
         updateSensorDisplayValues(readings.value);
-        console.log(readings.value);
     })
 
     socket.on('usersCount', function (total) {
@@ -53,7 +52,7 @@ $(document).ready(function () {
 
     Highcharts.setOptions({
         global: {
-            useUTC: false
+            useUTC: true
         },
         plotOptions: {
             series: {
@@ -77,6 +76,9 @@ $(document).ready(function () {
                     _series2 = this.series[1];
                     _series3 = this.series[2];
                 }
+            },
+            style: {
+                fontFamily: 'Source Sans Pro'
             }
         },
         credits: false,

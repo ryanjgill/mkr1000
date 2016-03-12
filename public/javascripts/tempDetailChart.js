@@ -1,33 +1,5 @@
 $(document).ready(function () {
-    var _series1
-        , $temperatureDisplay = $('div.sensor-values div.temperature')
-        , $users = $('.users')
-        ;
-
     var socket = io.connect('http://192.168.1.249:3000/temperature')
-    socket.on('chart:data', function (readings) {
-        if (!_series1) { return; }
-
-        //_series1.addPoint([readings.date, readings.value[0]], true, true);
-
-        updateTemperature(readings.value[0])
-    })
-
-    socket.on('usersCount', function (total) {
-        updateUsersCount(total.totalUsers);
-    });
-
-    function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    function updateUsersCount(total) {
-        $users.html(total);
-    }
-
-    function updateTemperature(value) {
-        $temperatureDisplay.html(value + '<span> °F</span>');
-    }
 
     var detailChart;
 
@@ -47,14 +19,24 @@ $(document).ready(function () {
         // create a detail chart referenced by a global variable
         detailChart = $('#detail-container').highcharts({
             chart: {
-                reflow: true
+                reflow: true,
+                style: {
+                    fontFamily: 'Source Sans Pro'
+                }
             },
             credits: false,
             title: {
-                text: 'Temperature History'
+                text: 'Temperature Data',
+                style: {
+                    fontSize: '3em',
+                    color: Highcharts.getOptions().colors[0]
+                }
             },
             subtitle: {
-                text: 'Select an area by dragging across the lower chart'
+                text: 'Select an area by dragging across the <span style="text-decoration: underline">lower</span> chart',
+                style: {
+                    fontSize: '2em'
+                }
             },
             xAxis: {
                 type: 'datetime'
@@ -63,13 +45,18 @@ $(document).ready(function () {
                 title: {
                     text: null
                 },
-                maxZoom: 0.1
+                maxZoom: .1
             },
             tooltip: {
                 formatter: function() {
                     var point = this.points[0];
-                    return '<b>' + point.series.name + '</b><br/>' + Highcharts.dateFormat('%A %B %e %Y', this.x) + ':<br/>' +
-                        Highcharts.numberFormat(point.y, 2) + ' Volts';
+                    return '<span>' + Highcharts.dateFormat('%A %B %e %Y', this.x) + ':</span><br/>' +
+                        '<span>' + point.y + ' °F </span>';
+                },
+                style: {
+                    fontSize: '1em',
+                    lineHeight: '36px',
+                    padding: '30px'
                 },
                 shared: true
             },
@@ -109,6 +96,9 @@ $(document).ready(function () {
         $('#master-container').highcharts({
                 chart: {
                     reflow: true,
+                    style: {
+                        fontFamily: 'Source Sans Pro'
+                    },
                     zoomType: 'x',
                     events: {
 
@@ -152,7 +142,17 @@ $(document).ready(function () {
                     }
                 },
                 title: {
-                    text: null
+                    text: Number(data.length).toLocaleString('en'),
+                    style: {
+                        fontSize: '2em',
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                },
+                subtitle: {
+                    text: 'Total Measurements',
+                    style: {
+                        fontSize: '2em'
+                    }
                 },
                 xAxis: {
                     type: 'datetime',
@@ -215,7 +215,7 @@ $(document).ready(function () {
 
                 series: [{
                     type: 'area',
-                    name: 'USD to EUR',
+                    name: 'Temperature',
                     pointInterval: 24 * 3600 * 1000,
                     pointStart: data[0][0],
                     data: data,
