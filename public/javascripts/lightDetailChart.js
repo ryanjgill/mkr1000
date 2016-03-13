@@ -1,51 +1,23 @@
 $(document).ready(function () {
-    var _series1
-        , _series2
-        , $lightDisplay = $('div.sensor-values div.light')
+    var detailChart
         , $users = $('.users')
         ;
 
     var socket = io.connect('http://192.168.1.249:3000')
-    //socket.on('chart:data', function (readings) {
-    //    if (!_series1 || !_series2 || !_series3) { return; }
-    //    _series1.addPoint([readings.date, readings.value[0]], false, true);
-    //    _series2.addPoint([readings.date, readings.value[1]], false, true);
-    //    _series3.addPoint([readings.date, readings.value[2]], true, true);
-    //
-    //    updateSensorDisplayValues(readings.value);
-    //    console.log(readings.value);
-    //})
 
     socket.on('usersCount', function (total) {
         updateUsersCount(total.totalUsers);
     });
 
-    function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
     function updateUsersCount(total) {
         $users.html(total);
     }
 
-    function updateLight(value) {
-        $lightDisplay.html(value + '<span> %</span>');
-    }
-
-    var detailChart;
-
     // create the detail chart
     function createDetail(masterChart) {
 
-        // prepare the detail chart
-        var detailData = [],
-            detailStart = data[0][0];
-
-        $.each(masterChart.series[0].data, function() {
-            if (this.x >= detailStart) {
-                detailData.push(this.y);
-            }
-        });
+        // render last 5,000 points for top chart
+        var detailData = data.slice(-5000);
 
         // create a detail chart referenced by a global variable
         detailChart = $('#detail-container').highcharts({
@@ -76,13 +48,13 @@ $(document).ready(function () {
                 title: {
                     text: null
                 },
-                maxZoom: 0.1
+                maxZoom: .1
             },
             tooltip: {
                 formatter: function() {
                     var point = this.points[0];
-                    return '<b>' + point.series.name + '</b><br/>' + Highcharts.dateFormat('%A %B %e %Y', this.x) + ':<br/>' +
-                        point.y + ' % Full Light Exposure';
+                    return Highcharts.dateFormat('%A %B %e %Y', this.x) + ':<br/>' +
+                        point.y + ' % Light Exposure';
                 },
                 style: {
                     fontSize: '1em',
@@ -109,8 +81,6 @@ $(document).ready(function () {
             },
             series: [{
                 name: 'Light Exposure',
-                pointStart: detailStart,
-                pointInterval: 24 * 3600 * 1000,
                 data: detailData,
                 color: Highcharts.getOptions().colors[1]
             }],
@@ -132,7 +102,6 @@ $(document).ready(function () {
                     },
                     zoomType: 'x',
                     events: {
-
                         // listen to the selection event on the master chart to update the
                         // extremes of the detail chart
                         selection: function(event) {

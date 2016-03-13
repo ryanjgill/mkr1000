@@ -1,4 +1,6 @@
 'use strict'
+
+// node express and rethinkdb
 let express = require('express')
 let path = require('path')
 let favicon = require('serve-favicon')
@@ -10,26 +12,26 @@ var dbConnection = null
 
 let app = express()
 
+// defining sensor variables
+var led, moistureSensor, tempSensor, lightSensor
 
 // MKR1000 stuffs
 let httpServer = require('http').Server(app)
 let io = require('socket.io')(httpServer)
-
-httpServer.listen(3000)
-
 let net = require('net')
 let five = require('johnny-five')
 let firmata = require('firmata')
 
+httpServer.listen(3000)
+
 // set options to match Firmata config for wifi
 // using MKR1000 with WiFi101
-var options = {
+const options = {
   host: '192.168.1.9',
   port: 3030
 }
 
-var led, moistureSensor, tempSensor, lightSensor
-
+// connection starts here
 net.connect(options, function() { //'connect' listener
   console.log('connected to server!')
 
@@ -72,12 +74,10 @@ net.connect(options, function() { //'connect' listener
       // full Johnny-Five support here
       console.log('five ready')
 
-      // enable i2c
-      //this.i2cConfig()
-
-      // setup led to correct pin
+      // setup led on pin 6 --> led pin for MKR1000
       led = new five.Led(6)
 
+      // pulse led to indicate the board is communicating
       pulseLed(led, 2000, function () {
         console.log('LED √')
       })
@@ -128,13 +128,14 @@ net.connect(options, function() { //'connect' listener
 
 })
 
+// emit usersCount to all sockets
 function emitUsersCount(io) {
-  // emit usersCount to all sockets
   io.sockets.emit('usersCount', {
     totalUsers: io.engine.clientsCount
   })
 }
 
+// emit chart data to all sockets
 function emitChartData(io, tempSensor, lightSensor, moistureSensor) {
   io.sockets.emit('chart:data', {
     date: new Date().getTime(),
@@ -142,6 +143,7 @@ function emitChartData(io, tempSensor, lightSensor, moistureSensor) {
   })
 }
 
+// save measurements to RethinkDB
 function saveMeasurements(connection, tempSensor, lightSensor, moistureSensor) {
   let measurement = {
     date: new Date().getTime(),
@@ -158,18 +160,22 @@ function saveMeasurements(connection, tempSensor, lightSensor, moistureSensor) {
   })
 }
 
+// get temperature measurement
 function getTemp(tempSensor) {
   return Math.round(tempSensor.fahrenheit - 25)
 }
 
+// get light measurement
 function getLight(lightSensor) {
   return Math.round(lightSensor.value/1023*100)
 }
 
+// get moisture measurement
 function getMoisture(moisture) {
   return Math.round(moisture.value/1023*100)
 }
 
+// pulse led
 function pulseLed(led, duration, cb) {
   led.blink()
   setTimeout(function () {
@@ -185,7 +191,6 @@ app.locals.title = 'MKR1000'
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
 
-// uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(logger('dev'))
 app.use(bodyParser.json())
@@ -199,30 +204,12 @@ app.use(require('node-sass-middleware')({
 }))
 app.use(express.static(path.join(__dirname, 'public')))
 
-
+// get random int in range of min and max --> was used to mock out data
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-/* GET home page. */
-app.get('/', function(req, res, next) {
-  res.render('index')
-})
-
-
-
-function getAllTemperatureMeasurements(cb) {
-  return getAllMeasurementsOfCertainType('temp', cb)
-}
-
-function getAllLightMeasurements(cb) {
-  return getAllMeasurementsOfCertainType('light', cb)
-}
-
-function getAllMoistureMeasurements(cb) {
-  return getAllMeasurementsOfCertainType('moisture', cb)
-}
-
+// get all measurements of certain type
 function getAllMeasurementsOfCertainType(type, cb) {
   r.table('measurements')
       .filter((m) => m.hasFields(type))
@@ -234,6 +221,27 @@ function getAllMeasurementsOfCertainType(type, cb) {
         measurements.toArray(cb)
       })
 }
+
+// get all temperature measurements
+function getAllTemperatureMeasurements(cb) {
+  return getAllMeasurementsOfCertainType('temp', cb)
+}
+
+// get all temperature measurements
+function getAllLightMeasurements(cb) {
+  return getAllMeasurementsOfCertainType('light', cb)
+}
+
+// get all temperature measurements
+function getAllMoistureMeasurements(cb) {
+  return getAllMeasurementsOfCertainType('moisture', cb)
+}
+
+
+// Routes
+app.get('/', function(req, res, next) {
+  res.render('index')
+})
 
 app.get('/temperature', function (req, res, next) {
   res.render('temperature')
@@ -247,6 +255,8 @@ app.get('/moisture', function (req, res, next) {
   res.render('moisture')
 })
 
+
+// Routes for data
 app.get('/api/temps', function (req, res, next) {
   getAllTemperatureMeasurements(function (err, measurements) {
     if (err) { console.log(err) }

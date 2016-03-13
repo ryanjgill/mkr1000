@@ -6,15 +6,8 @@ $(document).ready(function () {
     // create the detail chart
     function createDetail(masterChart) {
 
-        // prepare the detail chart
-        var detailData = [],
-            detailStart = data[0][0];
-
-        $.each(masterChart.series[0].data, function() {
-            if (this.x >= detailStart) {
-                detailData.push(this.y);
-            }
-        });
+        // rendering last 5,000 readings in detail chart
+        var detailData = data.slice(-5000);
 
         // create a detail chart referenced by a global variable
         detailChart = $('#detail-container').highcharts({
@@ -78,8 +71,6 @@ $(document).ready(function () {
             },
             series: [{
                 name: 'Temperature History',
-                pointStart: detailStart,
-                pointInterval: 24 * 3600 * 1000,
                 data: detailData,
                 color: Highcharts.getOptions().colors[0]
             }],
