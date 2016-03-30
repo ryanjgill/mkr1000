@@ -82,4 +82,4 @@ Once all dependencies are installed, run `npm start` to start our web server. At
 
 
 TLDR: I made a video of me trying to following this long guide here:
-[Video Guide coming soon!](http://youtube.com)
+[Video Guide](https://youtu.be/XD4Cotwo1-4)
