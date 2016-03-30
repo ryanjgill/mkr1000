@@ -13,7 +13,7 @@ We need to perform 3 major tasks in order to get our software up and running
 
 ### 1. Installing RethinkDB
 
-Go to https://www.rethinkdb.com/docs/install/ and click the approriate installation depending on your operating system.
+Go to https://www.rethinkdb.com/docs/install/ and click the appropriate installation depending on your operating system.
 
 Follow the installation instruction on the rethinkdb website.
 
@@ -74,9 +74,9 @@ Once installed you should be able to open up the command line and type `node -v`
 We will now install the Node.js app and start communicating using Johnny-Five.
 
 Go to my repo and click download ZIP. Then extract the folder to a place you want to store the project. Now open the command line and 'cd' in to that folder of the project.
-Once at the root of the project, we will need to install the dependecies and then start our app.
+Once at the root of the project, we will need to install the dependencies and then start our app.
 
-Run `npm install`. This installs all depencies listed in our package.json file.
+Run `npm install`. This installs all dependencies listed in our package.json file.
 
 Once all dependencies are installed, run `npm start` to start our web server. At this point we will need to have already started our rethinkdb server as well as having the MKR1000 up and running the StandardFirmataWifi sketch and connected to your network.
 
