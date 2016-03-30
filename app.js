@@ -126,6 +126,9 @@ net.connect(options, function() { //'connect' listener
     })
   })
 
+}).on('error', function (err) {
+  console.log('Unable to connect!')
+  console.log('Please make sure you have the latest StandardFirmataWifi sketch loaded on the MKR1000')
 })
 
 // emit usersCount to all sockets
