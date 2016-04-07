@@ -81,5 +81,5 @@ Run `npm install`. This installs all dependencies listed in our package.json fil
 Once all dependencies are installed, run `npm start` to start our web server. At this point we will need to have already started our rethinkdb server as well as having the MKR1000 up and running the StandardFirmataWifi sketch and connected to your network.
 
 
-TLDR: I made a video of me trying to following this long guide here:
+TLDR: I made a video of me trying to follow this long guide here:
 [Video Guide](https://youtu.be/XD4Cotwo1-4)
