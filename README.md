@@ -1,6 +1,9 @@
 # MKR1000
 Plant monitoring system using Arduino MKR1000, Standard Firmata WiFi, Johnny-five.io, and Node
 
+### TODO
+I plan to add more features that take advantage of RethinkDB's changefeeds. Some would include min and max readings for each of the sensors for a set duration (last 24 hours). 
+
 ## Guide to installing Plant Monitoring System (app)
 
 We need to perform 3 major tasks in order to get our software up and running
