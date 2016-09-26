@@ -3,7 +3,7 @@ $(document).ready(function () {
         , $users = $('.users')
         ;
 
-    var socket = io.connect('http://192.168.1.249:3000')
+    var socket = io.connect();
 
     socket.on('usersCount', function (total) {
         updateUsersCount(total.totalUsers);
