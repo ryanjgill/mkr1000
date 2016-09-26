@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var socket = io.connect('http://192.168.1.249:3000')
+    var socket = io.connect();
 
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
