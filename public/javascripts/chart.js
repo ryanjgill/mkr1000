@@ -10,7 +10,7 @@ $(document).ready(function () {
         , $users = $('.users')
         ;
 
-    var socket = io.connect('http://192.168.1.249:3000')
+    var socket = io.connect()
     socket.on('chart:data', function (readings) {
         if (!_series1 || !_series2 || !_series3) { return; }
         _series1.addPoint([readings.date, readings.value[0]], false, true);
