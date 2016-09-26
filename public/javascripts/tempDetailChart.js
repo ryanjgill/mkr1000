@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var socket = io.connect('http://192.168.1.249:3000/temperature')
+    var socket = io.connect();
 
     var detailChart;
 
