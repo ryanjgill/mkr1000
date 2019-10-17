@@ -1,241 +1,187 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,200,600,900,700");
-
-// dark theme colors
-$blue: #2b908f;
-$green: #90ee7e;
-$red: #f45b5b;
-$blue-grey: #7798BF;
-
-
-// highcharts dark theme colors
-// colors: ["#2b908f", "#90ee7e", "#f45b5b", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee",
-//       "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
-
-
-html, body {
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  font-family: 'Source Sans Pro', sans-serif;
+ // dark theme colors $blue: #2b908f;
+ $green: #90ee7e;
+ $red: #f45b5b;
+ $blue-grey: #7798BF;
+ // highcharts dark theme colors // colors: ["#2b908f", "#90ee7e", "#f45b5b", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", // "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"], html, body {
+     height: 100%;
+     padding: 0;
+     margin: 0;
+     font-family: 'Source Sans Pro', sans-serif;
 }
-
-.hide {
-  display: none !important;
+ .hide {
+     display: none !important;
 }
-
-#main-column{
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  color: rgb(205, 207, 206);
-
-  > div {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    flex: 1 1 auto;
-  }
-
-  > #about {
-    flex: 1 1 0;
-  }
-
-  > div#sensorValues {
-    flex: 1 1 0;
-  }
-
-  > div#sensorData {
-    flex: 2 1 0;
-    padding: 0;
-    margin: 0;
-  }
+ #main-column{
+     min-height: 100%;
+     display: flex;
+     flex-direction: column;
+     flex-wrap: nowrap;
+     color: rgb(205, 207, 206);
+     > div {
+         display: flex;
+         flex-direction: column;
+         justify-content: flex-start;
+         flex: 1 1 auto;
+    }
+     > #about {
+         flex: 1 1 0;
+    }
+     > div#sensorValues {
+         flex: 1 1 0;
+    }
+     > div#sensorData {
+         flex: 2 1 0;
+         padding: 0;
+         margin: 0;
+    }
 }
-
-.dashboard {
-  > div {
-    padding: 1rem;
-    &:nth-child(1) {
-      background: hsla(240, 0, 20%, 1);
+ .dashboard {
+     > div {
+         padding: 1rem;
+         &:nth-child(1) {
+             background: hsla(240, 0, 20%, 1);
+        }
+         &:nth-child(2) {
+             background: hsla(240, 0, 22%, 1);
+        }
+         &:nth-child(3) {
+             background: hsla(240, 0, 24%, 1);
+        }
+         h1, h2 {
+             margin: 0 0 0.2rem 0;
+        }
+         a {
+             text-decoration: none;
+             &.mkr-link {
+                 color: $blue;
+            }
+             &.j5-link {
+                 color: rgb(236,219,67);
+            }
+        }
+         p {
+             margin: 0;
+        }
     }
-    &:nth-child(2) {
-      background: hsla(240, 0, 22%, 1);
-    }
-    &:nth-child(3) {
-      background: hsla(240, 0, 24%, 1);
-    }
-    h1, h2 {
-      margin: 0 0 0.2rem 0;
-    }
-
-    a {
-      text-decoration: none;
-
-      &.mkr-link {
-        color: $blue;
-      }
-
-      &.j5-link {
-        color: rgb(236,219,67);
-      }
-
-    }
-    p {
-      margin: 0;
-    }
-  }
 }
-
-div#about {
-  h1 {
-    span:nth-of-type(1) {
-      color: $blue;
-      font-weight: 400;
+ div#about {
+     h1 {
+         span:nth-of-type(1) {
+             color: $blue;
+             font-weight: 400;
+        }
+         span:nth-of-type(2) {
+             color: $green;
+        }
     }
-    span:nth-of-type(2) {
-      color: $green;
-    }
-  }
 }
-
-div#sensorValues {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-
-  user-select: none;
-
-  div.sensor-values {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    flex-wrap: nowrap;
-
-    text-align: center;
-
-    border-radius: 5px;
-
-    transition: background-color 250ms ease-out;
-
-    &:hover {
-      cursor: pointer;
-
-      &#temperature {
-        background-color: rgba(43, 144, 143, 0.05);
-      }
-
-      &#light {
-        background-color: rgba(144, 238, 126, 0.05);
-      }
-
-      &#moisture {
-        background-color: rgba(244, 91, 91, 0.05);
-      }
-
+ div#sensorValues {
+     display: flex;
+     flex-direction: row;
+     flex-wrap: nowrap;
+     align-items: center;
+     user-select: none;
+     div.sensor-values {
+         display: flex;
+         flex: 1;
+         flex-direction: column;
+         flex-wrap: nowrap;
+         text-align: center;
+         border-radius: 5px;
+         transition: background-color 250ms ease-out;
+         &:hover {
+             cursor: pointer;
+             &#temperature {
+                 background-color: rgba(43, 144, 143, 0.05);
+            }
+             &#light {
+                 background-color: rgba(144, 238, 126, 0.05);
+            }
+             &#moisture {
+                 background-color: rgba(244, 91, 91, 0.05);
+            }
+        }
+         > div {
+             font-size: 4em;
+             font-weight: 200;
+             span {
+                 margin-left: 10px;
+                 font-size: .4em;
+            }
+        }
+         > label {
+             font-size: 1.5em;
+             &:hover {
+                 cursor: pointer;
+            }
+        }
+         div.temperature {
+             color: $blue;
+        }
+         div.light {
+             color: $green;
+             transition: background-color 300ms ease-in;
+             border-radius: 5px;
+        }
+         div.moisture {
+             color: $red;
+        }
+         div.users {
+             color: $blue-grey;
+             &:hover{
+                 cursor: default !important;
+            }
+        }
     }
-
-    > div {
-      font-size: 4em;
-      font-weight: 200;
-
-      span {
-        margin-left: 10px;
-        font-size: .4em;
-      }
+     div#users{
+         div.users:hover, label:hover {
+             cursor: default;
+        }
     }
-
-    > label {
-      font-size: 1.5em;
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
-
-    div.temperature {
-      color: $blue;
-    }
-
-    div.light {
-      color: $green;
-      transition: background-color 300ms ease-in;
-      border-radius: 5px;
-
-    }
-
-    div.moisture {
-      color: $red;
-    }
-
-    div.users {
-      color: $blue-grey;
-
-      &:hover{
-        cursor: default !important;
-      }
-    }
-
-  }
-
-  div#users{
-    div.users:hover, label:hover {
-      cursor: default;
-    }
-  }
-
-
 }
-
-div#detail-container {
-  flex: 2 1 0;
-  padding: 0;
-  margin: 0;
+ div#detail-container {
+     flex: 2 1 0;
+     padding: 0;
+     margin: 0;
 }
-div#master-container {
-  flex: 1 1 0;
-  padding: 0;
-  margin: 0;
+ div#master-container {
+     flex: 1 1 0;
+     padding: 0;
+     margin: 0;
 }
-
-
-@media screen and (max-width: 500px) {
-  div#about {
-    display: none;
-  }
-
-  div#sensorValues {
-    flex-direction: column;
-    font-size: .8em;
-    align-items: center;
-
-    div.sensor-values {
-      flex-direction: row;
-      align-items: flex-end;
-
-      label {
-        margin-left: 10px;
-        margin-bottom: 10px;
-      }
+ @media screen and (max-width: 500px) {
+     div#about {
+         display: none;
     }
-  }
-}
-@media screen and (max-height: 600px) {
-  div#about {
-    display: none;
-  }
-
-  div#sensorValues {
-    flex-direction: row;
-    font-size: .5em;
-
-    div.sensor-values {
-      flex-direction: column;
-      align-items: center;
-
-      > label {
-        font-size: 1em;
-      }
+     div#sensorValues {
+         flex-direction: column;
+         font-size: .8em;
+         align-items: center;
+         div.sensor-values {
+             flex-direction: row;
+             align-items: flex-end;
+             label {
+                 margin-left: 10px;
+                 margin-bottom: 10px;
+            }
+        }
     }
-  }
 }
+ @media screen and (max-height: 600px) {
+     div#about {
+         display: none;
+    }
+     div#sensorValues {
+         flex-direction: row;
+         font-size: .5em;
+         div.sensor-values {
+             flex-direction: column;
+             align-items: center;
+             > label {
+                 font-size: 1em;
+            }
+        }
+    }
+}
+ 
