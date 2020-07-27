@@ -2,7 +2,7 @@
 Plant monitoring system using Arduino MKR1000, Standard Firmata WiFi, Johnny-five.io, and Node
 
 ## UPDATE: July 2020
-I've updated the dependencies of this repo and also ended up changing the static ip addres since my wifi router has changes. This means the videos will list a different static ip than the one in the latest master branch. I recommend establishing a connection on your mkr1000 with your local network before hand to see what ip address it wants to use. Then install the StandardFirmataWifi sketch using that ip address as your static ip.
+I've updated the dependencies of this repo and also ended up changing the static ip addres since my wifi router has changed. This means the videos will list a different static ip than the one in the latest master branch. I recommend establishing a connection on your mkr1000 with your local network before hand to see what ip address it wants to use. Then install the StandardFirmataWifi sketch using that ip address as your static ip.
 
 Please use <b>Node v8.16.0</b>
 
