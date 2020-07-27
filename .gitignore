@@ -1,3 +1,4 @@
 node_modules
 .idea
 node-debug.log
+rethinkdb_data

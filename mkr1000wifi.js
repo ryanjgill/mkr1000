@@ -8,7 +8,7 @@ let firmata = require('firmata')
 // using mkr1000 with WiFi101
 // currently using static ip
 let options = {
-    host: '192.168.1.9',
+    host: '192.168.86.63',
     port: 3030
 }
 

@@ -50,10 +50,10 @@ Add you wifi ssid to the following line where it says 'your_network_name'
 
 `char ssid[] = "Wish I had Google Fiber";`
 
-Uncomment the line `// #define STATIC_IP_ADDRESS 192,168,1,113` and change the last 3 digits from `113` to `9`.
+Uncomment the line `// #define STATIC_IP_ADDRESS 192,168,86,63` 
 It should look like below when done.
 
-`#define STATIC_IP_ADDRESS 192,168,1,9`
+`#define STATIC_IP_ADDRESS 192,168,86,63`
 
 Enter you wifi password where it says `your_wpa_passphrase`;
 

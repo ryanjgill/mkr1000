@@ -27,7 +27,7 @@ httpServer.listen(3000)
 // set options to match Firmata config for wifi
 // using MKR1000 with WiFi101
 const options = {
-  host: '192.168.1.9',
+  host: '192.168.86.63',
   port: 3030
 }
 
@@ -192,7 +192,7 @@ app.locals.title = 'MKR1000'
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'jade')
+app.set('view engine', 'pug')
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(logger('dev'))
