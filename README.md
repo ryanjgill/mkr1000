@@ -4,6 +4,8 @@ Plant monitoring system using Arduino MKR1000, Standard Firmata WiFi, Johnny-fiv
 ## UPDATE: July 2020
 I've updated the dependencies of this repo and also ended up changing the static ip addres since my wifi router has changes. This means the videos will list a different static ip than the one in the latest master branch. I recommend establishing a connection on your mkr1000 with your local network before hand to see what ip address it wants to use. Then install the StandardFirmataWifi sketch using that ip address as your static ip.
 
+Please use <b>Node v8.16.0</b>
+
 ### TODO
 I plan to add more features that take advantage of RethinkDB's changefeeds. Some would include min and max readings for each of the sensors for a set duration (last 24 hours). 
 
