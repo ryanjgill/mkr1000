@@ -68,6 +68,9 @@ net.connect(options, function() { //'connect' listener
     }).error(function (err) {
       console.log('Rethinkdb error!')
       console.log(err)
+      console.log(`
+Make sure you have rethinkdb up and running and can connect on the same network. 
+Could possibly need to run 'rethinkdb --bind all' to expose the connection.`)
     })
 
     board.on('ready', function() {
@@ -120,7 +123,9 @@ net.connect(options, function() { //'connect' listener
 
       // save measurement to rethinkdb on each interval
       setInterval(function () {
-        saveMeasurements(dbConnection, tempSensor, lightSensor, moistureSensor)
+        if (dbConnection) {
+          saveMeasurements(dbConnection, tempSensor, lightSensor, moistureSensor)
+        }
       }, 10000)
 
     })
@@ -286,4 +291,3 @@ app.get('/api/moisture', function (req, res, next) {
     res.end()
   })
 })
-
