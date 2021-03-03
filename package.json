@@ -13,7 +13,7 @@
     "morgan": "^1.10.0",
     "node-sass": "^4.14.1",
     "node-sass-middleware": "^0.11.0",
-    "pug": "^3.0.0",
+    "pug": "^3.0.1",
     "rethinkdb": "^2.4.2",
     "serve-favicon": "^2.5.0",
     "socket.io": "^2.3.0"
